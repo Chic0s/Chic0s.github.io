@@ -1,0 +1,88 @@
+baseURL = "https://Chic0s.fr"
+theme = "risotto"
+title = "Chic0s"
+author = "Chic0s"
+paginate = 3
+languageCode = "fr"
+DefaultContentLanguage = "fr"
+enableInlineShortcodes = true
+copyright = "Made by a [Tooth](https://chic0s.fr/)"
+
+
+ignoreErrors = ["error-remote-getjson"]
+
+# Automatically add content sections to main menu
+sectionPagesMenu = "main"
+
+[params]
+noindex = false
+
+[params.theme]
+palette = "windows-95"
+
+[params.about]
+title = "Chic0s"
+# description = "Hello, i'm a french IT security student."
+description = '(lambda hex_str: [print(chr(int(hex_str[i:i+2], 16))) for i in range(0, len(hex_str), 2)])("45534e412053747564656e74")'
+logo_image = "images/Chic0s.png"
+
+github_icon = "images/github-mark-white.svg"
+github_title = "GitHub"
+github_url = "https://github.com/Chic0s"
+
+rootme_icon = "images/rootme.png"
+rootme_title = "Root-me"
+rootme_url = "https://www.root-me.org/Chic0s"
+
+[menu]
+
+  # [[menu.main]]
+  #   identifier = "about"
+  #   name = "About"
+  #   url = "/about/"
+  #   weight = 10
+
+[taxonomies]
+category = "categories"
+tag = "tags"
+series = "series"
+
+# For hugo >= 0.60.0, enable inline HTML
+[markup.goldmark.renderer]
+unsafe = true
+
+[markup]
+
+  # Table of contents
+  # Add toc = true to content front matter to enable
+  [markup.tableOfContents]
+    startLevel = 2
+    endLevel   = 3
+    ordered    = true
+
+[privacy]
+
+  [privacy.vimeo]
+    disabled = false
+    simple = true
+
+  [privacy.twitter]
+    disabled = false
+    enableDNT = true
+    simple = true
+
+  [privacy.instagram]
+    disabled = false
+    simple = true
+
+  [privacy.youtube]
+    disabled = false
+    privacyEnhanced = true
+
+[services]
+
+  [services.instagram]
+    disableInlineCSS = true
+
+  [services.twitter]
+    disableInlineCSS = true
