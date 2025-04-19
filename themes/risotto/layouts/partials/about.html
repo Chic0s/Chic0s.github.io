@@ -1,0 +1,23 @@
+{{ with .Site.Params.about }}
+<div class="aside__about">
+    {{ with .logo }}<span class="about__logo" role="img">{{ . }}</span>&nbsp;{{ end }}
+    {{ with .logo_image }}<img class="about__logo" src="{{ . | absURL }}" alt="Logo">{{ end }}
+<h1 class="about__title">{{ .title }}</h1>
+{{ with .description }}<p class="about__description" style="font-size: 7px;">{{ . | markdownify }}</p>{{ end }}
+</div>
+
+
+<ul class="aside__social-links">
+    <li>
+        <a href="{{ .rootme_url }}" rel="me" aria-label="{{ .rootme_title }}" title="{{ .rootme_title }}">
+            {{ with .rootme_icon }}<img width="25px" aria-hidden="true" src="{{ . | absURL }}">{{ end }}
+        </a>
+    </li>
+    <li>
+        <a href="{{ .github_url }}" style="padding-left: 25%" rel="me" aria-label="{{ .github_title }}" title="{{ .github_title }}">
+            {{ with .github_icon }}<img width="25px" aria-hidden="true" src="{{ . | absURL }}">{{ end }}
+        </a>
+    </li>
+</ul>
+<img src="https://i.gifer.com/PcUC.gif" width="150px" alt="Walking">
+{{ end }}
