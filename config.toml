@@ -1,88 +1,84 @@
 baseURL = "https://Chic0s.fr"
-theme = "risotto"
-title = "Chic0s"
-author = "Chic0s"
-paginate = 3
 languageCode = "fr"
-DefaultContentLanguage = "fr"
-enableInlineShortcodes = true
-copyright = "Made by a [Tooth](https://chic0s.fr/)"
-
-
-ignoreErrors = ["error-remote-getjson"]
-
-# Automatically add content sections to main menu
-sectionPagesMenu = "main"
+theme = "terminal"
+title = "Chic0s"
+paginate = 5
 
 [params]
-noindex = false
+  # Répertoire principal du contenu
+  contentTypeName = "posts"
 
-[params.theme]
-palette = "windows-95"
+  # Couleur de base du thème (sera overridée par style.css)
+  themeColor = "white"
 
-[params.about]
-title = "Chic0s"
-# description = "Hello, i'm a french IT security student."
-description = '(lambda hex_str: [print(chr(int(hex_str[i:i+2], 16))) for i in range(0, len(hex_str), 2)])("45534e412053747564656e74")'
-logo_image = "images/Chic0s.png"
+  # Pleine largeur
+  fullWidthTheme = true
+  centerTheme = false
 
-github_icon = "images/github-mark-white.svg"
-github_title = "GitHub"
-github_url = "https://github.com/Chic0s"
+  # Auteur
+  author = "Chic0s"
+  windowTitle = "Chic0s"
 
-rootme_icon = "images/rootme.png"
-rootme_title = "Root-me"
-rootme_url = "https://www.root-me.org/Chic0s"
+  # Nombre de posts sur la homepage
+  amountNewsOnHomepage = 5
+
+  # Format de date
+  dateFormat = "02/01/2006"
+
+[params.logo]
+  logoText = "[Chic0s]"
+  logoHomeLink = "/"
 
 [menu]
+  [[menu.main]]
+    identifier = "htb"
+    name = "HTB"
+    url = "/posts/htb/"
+    weight = 10
 
-  # [[menu.main]]
-  #   identifier = "about"
-  #   name = "About"
-  #   url = "/about/"
-  #   weight = 10
+  [[menu.main]]
+    identifier = "ctf"
+    name = "CTF"
+    url = "/posts/ctf/"
+    weight = 20
+
+  [[menu.main]]
+    identifier = "dojo"
+    name = "Dojo YWH"
+    url = "/posts/dojo/"
+    weight = 30
+
+  [[menu.main]]
+    identifier = "hardware"
+    name = "Hardware"
+    url = "/posts/hardware/"
+    weight = 40
+
+  [[menu.main]]
+    identifier = "about"
+    name = "About"
+    url = "/about/"
+    weight = 50
 
 [taxonomies]
-category = "categories"
-tag = "tags"
-series = "series"
+  category = "categories"
+  tag = "tags"
+  series = "series"
 
-# For hugo >= 0.60.0, enable inline HTML
+# Activer le HTML inline dans le markdown
 [markup.goldmark.renderer]
-unsafe = true
+  unsafe = true
 
 [markup]
-
-  # Table of contents
-  # Add toc = true to content front matter to enable
   [markup.tableOfContents]
     startLevel = 2
     endLevel   = 3
     ordered    = true
 
+[markup.highlight]
+  noClasses = false
+
 [privacy]
-
-  [privacy.vimeo]
-    disabled = false
-    simple = true
-
-  [privacy.twitter]
-    disabled = false
-    enableDNT = true
-    simple = true
-
-  [privacy.instagram]
-    disabled = false
-    simple = true
-
   [privacy.youtube]
     disabled = false
     privacyEnhanced = true
-
-[services]
-
-  [services.instagram]
-    disableInlineCSS = true
-
-  [services.twitter]
-    disableInlineCSS = true

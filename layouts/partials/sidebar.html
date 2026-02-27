@@ -1,0 +1,56 @@
+<aside class="sidebar">
+  <div class="sidebar-inner">
+    <div class="sidebar-logo">
+      <a href="/" style="text-decoration:none;">
+        <div class="logo" style="font-family:'Fira Code', monospace; font-size:1.5rem;">[Chic0s]</div>
+      </a>
+    </div>
+    <nav class="sidebar-nav">
+      <ul>
+        {{ range .Site.Menus.main }}
+        <li class="sidebar-item">
+          <div class="sidebar-link-wrapper">
+            <span class="sidebar-toggle" onclick="toggleMenu(this)">▶</span>
+            <a href="{{ .URL }}" class="sidebar-link">{{ .Name }}</a>
+          </div>
+          <ul class="sidebar-sub-menu" style="display: none;">
+            {{ $sectionID := .Identifier }}
+            {{/* On cherche les pages dans posts/ID */}}
+            {{ $path := printf "posts/%s" $sectionID }}
+            {{ range where $.Site.RegularPages "Section" $sectionID }}
+                <li><a href="{{ .Permalink }}">{{ .Title }}</a></li>
+            {{ end }}
+            {{/* Fallback for sections like hardware/htb if they are subdirectories of posts */}}
+            {{ if eq (len (where $.Site.RegularPages "Section" $sectionID)) 0 }}
+                {{ range where $.Site.RegularPages "Type" "posts" }}
+                    {{ if in .RelPermalink (printf "/%s/" $sectionID) }}
+                        <li><a href="{{ .Permalink }}">{{ .Title }}</a></li>
+                    {{ end }}
+                {{ end }}
+            {{ end }}
+            {{/* Special case for about */}}
+            {{ if eq .Identifier "about" }}
+                <li><a href="{{ "/about/" | absURL }}">About me</a></li>
+            {{ end }}
+          </ul>
+        </li>
+        {{ end }}
+      </ul>
+    </nav>
+  </div>
+</aside>
+
+<script>
+function toggleMenu(el) {
+  const subMenu = el.parentElement.nextElementSibling;
+  if (subMenu.style.display === "none") {
+    subMenu.style.display = "block";
+    el.innerText = "▼";
+    el.classList.add("open");
+  } else {
+    subMenu.style.display = "none";
+    el.innerText = "▶";
+    el.classList.remove("open");
+  }
+}
+</script>

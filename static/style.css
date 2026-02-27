@@ -1,0 +1,248 @@
+/* ============================================================
+   Chic0s - Sidebar Layout & Minimalism
+   ============================================================ */
+
+:root {
+  --background: #000000;
+  --color: #e8e8e8;
+  --border-color: #333333;
+  --accent: #ffffff;
+  --accent-hover: #aaaaaa;
+  --sidebar-width: 250px;
+}
+
+body {
+  background-color: var(--background) !important;
+  color: var(--color) !important;
+  margin: 0;
+  overflow-x: hidden;
+}
+
+/* Layout */
+.main-wrapper {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* Sidebar */
+.sidebar {
+  width: var(--sidebar-width);
+  background: #050505;
+  border-right: 1px solid var(--border-color);
+  padding: 30px 20px;
+  flex-shrink: 0;
+  height: 100vh;
+  position: sticky;
+  top: 0;
+  overflow-y: auto;
+}
+
+.sidebar-logo {
+  margin-bottom: 40px;
+}
+
+.sidebar-logo .logo, 
+.sidebar-logo .logo a {
+  font-size: 1.5rem !important;
+  color: #ffffff !important;
+  text-decoration: none !important;
+  border: none !important;
+  background: none !important;
+  background-color: transparent !important;
+  padding: 0 !important;
+}
+
+.sidebar-nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar-item {
+  margin-bottom: 15px;
+}
+
+.sidebar-link-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.sidebar-toggle {
+  cursor: pointer;
+  font-size: 0.8rem;
+  color: #666;
+  width: 15px;
+  display: inline-block;
+  transition: transform 0.2s;
+}
+
+.sidebar-toggle.open {
+  color: #ffffff;
+}
+
+.sidebar-link {
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 1.1rem;
+  border: none !important;
+}
+
+.sidebar-link:hover {
+  color: #aaaaaa;
+}
+
+.sidebar-sub-menu {
+  list-style: none;
+  padding-left: 25px !important;
+  margin-top: 10px !important;
+  border-left: 1px solid #222;
+}
+
+.sidebar-sub-menu li {
+  margin-bottom: 8px;
+}
+
+.sidebar-sub-menu li a {
+  color: #888;
+  font-size: 0.9rem;
+  text-decoration: none;
+  border: none !important;
+}
+
+.sidebar-sub-menu li a:hover {
+  color: #ffffff;
+}
+
+/* Content Area */
+.content-area {
+  flex-grow: 1;
+  padding: 0 !important; /* Retrait du padding */
+  width: calc(100% - var(--sidebar-width));
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.container {
+  width: 100% !important;
+  max-width: 100% !important; /* Prend toute la largeur disponible */
+  margin: 0 !important;
+}
+
+/* On cache le header par défaut car on a la sidebar */
+header.header {
+  display: none !important;
+}
+
+/* Hero Section - Aligné en haut à gauche */
+.hero {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* Aligné à gauche */
+  justify-content: flex-start;
+  text-align: left; /* Aligné à gauche */
+  padding: 0 0 40px 0;
+  border-bottom: 1px solid #333333;
+  margin-bottom: 40px;
+}
+
+.hero-logo {
+  max-width: 120px;
+  height: auto;
+  margin-bottom: 15px;
+  border: none !important;
+  background: none !important;
+  background-color: transparent !important;
+  box-shadow: none !important;
+  filter: brightness(1) !important;
+}
+
+.hero-pseudo {
+  font-size: 1.5rem !important;
+  margin: 0 0 10px 0 !important;
+  color: #ffffff !important;
+  font-family: "Fira Code", monospace !important;
+  border: none !important;
+  background: none !important;
+  font-weight: normal !important;
+}
+
+.hero-subtitle {
+  font-size: 1.1rem;
+  color: #888;
+  margin: 0 0 10px 0 !important; /* Réduit de 30px à 10px */
+  font-family: "Fira Code", monospace;
+}
+
+.hero-socials {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  background: none !important;
+  background-color: transparent !important;
+}
+
+.hero-socials a, 
+.hero-socials a:hover, 
+.hero-socials a:active {
+  background: none !important;
+  background-color: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+  box-shadow: none !important;
+  text-decoration: none !important;
+}
+
+.hero-socials a img {
+  width: 64px;
+  height: 64px;
+  background: none !important;
+  background-color: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  /* Filter pour rendre les logos blancs s'ils sont noirs à l'origine */
+  filter: brightness(0) invert(1) !important;
+  transition: opacity 0.2s;
+}
+
+.hero-socials a:hover img {
+  opacity: 0.6;
+}
+
+/* Posts / Cards */
+article.post {
+  background: transparent !important;
+  border-bottom: 1px solid #222 !important;
+  padding-bottom: 40px;
+  margin-bottom: 40px;
+}
+
+h2.post-title a {
+  color: #ffffff !important;
+  border: none !important;
+}
+
+/* Blocs de code */
+pre {
+  background: #0a0a0a !important;
+  border: 1px solid #333 !important;
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+  .main-wrapper {
+    flex-direction: column;
+  }
+  .sidebar {
+    width: 100%;
+    height: auto;
+    position: relative;
+    border-right: none;
+    border-bottom: 1px solid #333;
+  }
+  .content-area {
+    max-width: 100%;
+    padding: 20px;
+  }
+}
