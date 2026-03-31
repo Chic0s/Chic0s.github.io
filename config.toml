@@ -55,10 +55,16 @@ paginate = 5
     weight = 40
 
   [[menu.main]]
+    identifier = "sensibilisation"
+    name = "Sensibilisation"
+    url = "/sensibilisation/"
+    weight = 50
+
+  [[menu.main]]
     identifier = "about"
     name = "About"
     url = "/about/"
-    weight = 50
+    weight = 60
 
 [taxonomies]
   category = "categories"
