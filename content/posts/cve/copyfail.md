@@ -1,14 +1,24 @@
-+++
-title = "CVE-2026-31431 — Copy Fail : la mitigation officielle ne fonctionne pas sur RHEL 8.7"
-date = "2026-05-08"
-tags = ["cve", "linux", "rhel", "lpe", "kernel"]
-+++
+---
+title: "CVE-2026-31431 — Copy Fail : la mitigation officielle ne fonctionne pas sur RHEL 8.7"
+date: 2026-05-08
+description: "Analyse de CVE-2026-31431 (Copy Fail) sur RHEL 8.7 : demonstration que la mitigation officielle est inefficace en raison de la compilation builtin d'algif_aead, et presentation de la mitigation correcte via initcall_blacklist."
+tags:
+  - CVE
+  - Linux
+  - RHEL
+  - LPE
+  - Kernel
+  - Copy Fail
+categories:
+  - PoC
+draft: false
+---
  
 ## TL;DR
  
-Copy Fail (CVE-2026-31431) permet a un utilisateur local non privilegie d'obtenir un shell root en 732 octets de Python.
-La mitigation officielle publiee sur [copy.fail](https://copy.fail) est sans effet sur RHEL 8.7 car `algif_aead` est compile directement dans le kernel (`CONFIG_CRYPTO_USER_API_AEAD=y`).
-La mitigation correcte passe par `initcall_blacklist` via `grubby`, documentee dans l'[issue #73](https://github.com/theori-io/copy-fail-CVE-2026-31431/issues/73) du depot officiel.
+Copy Fail (CVE-2026-31431) permet à un utilisateur local non privilegié d'obtenir un shell root en 732 octets de Python.
+La mitigation officielle publiée sur [copy.fail](https://copy.fail) est sans effet sur RHEL 8.7 car `algif_aead` est compile directement dans le kernel (`CONFIG_CRYPTO_USER_API_AEAD=y`).
+La mitigation correcte passe par `initcall_blacklist` via `grubby`, documentée dans l'[issue #73](https://github.com/theori-io/copy-fail-CVE-2026-31431/issues/73) du dépot officiel.
  
 ---
  
@@ -23,10 +33,10 @@ Compte : lowpriv (utilisateur standard, pas de sudo)
  
 ---
  
-## La vulnerabilite
+## La vulnerabilité
  
-La faille est localisee dans `algif_aead`, introduite en aout 2017 dans `authencesn`.
-En chaînant un socket `AF_ALG`, `splice()` et le page cache du kernel, l'exploit ecrit 4 octets dans la representation memoire de `/usr/bin/su` sans toucher le fichier sur disque.
+La faille est localisée dans `algif_aead`, introduite en aout 2017 dans `authencesn`.
+En chaînant un socket `AF_ALG`, `splice()` et le page cache du kernel, l'exploit ecrit 4 octets dans la représentation memoire de `/usr/bin/su` sans toucher le fichier sur le disque.
  
 ```
 lowpriv
@@ -76,7 +86,7 @@ Sorry, user lowpriv may not run sudo on localhost.
  
 ## Pourquoi la mitigation officielle echoue
  
-La mitigation documentee sur copy.fail consiste a desactiver le module `algif_aead` :
+La mitigation documentée sur copy.fail consiste a désactivée le module `algif_aead` :
  
 ```bash
 echo "install algif_aead /bin/false" > /etc/modprobe.d/disable-algif.conf
@@ -97,7 +107,7 @@ La cause :
 CONFIG_CRYPTO_USER_API_AEAD=y
 ```
  
-La valeur `=y` signifie que le module est compile directement dans le kernel.
+La valeur `=y` signifie que le module est compilé directement dans le kernel.
 `rmmod` est sans effet. La blacklist `modprobe.d` est ignoree.
 Le module n'apparait pas dans `lsmod`, ce qui rend toute verification naive incorrecte.
  
@@ -106,7 +116,7 @@ Le module n'apparait pas dans `lsmod`, ce qui rend toute verification naive inco
 | `=y`   | Builtin | Sans effet | Ignoree |
 | `=m`   | Module  | Fonctionne | Efficace |
  
-Sur l'ensemble de la famille RHEL 8.x, `algif_aead=y`. La mitigation officielle donne un faux sentiment de securite : les commandes s'executent sans erreur, le vecteur reste ouvert.
+Sur l'ensemble de la famille RHEL 8.x, `algif_aead=y`. Le vecteur d'attaque est resté ouvert.
  
 Preuve apres application de la mitigation officielle :
  
@@ -119,10 +129,10 @@ Preuve apres application de la mitigation officielle :
  
 ## La mitigation correcte
  
-Source : [issue #73](https://github.com/theori-io/copy-fail-CVE-2026-31431/issues/73) du depot officiel.
+Source : [issue #73](https://github.com/theori-io/copy-fail-CVE-2026-31431/issues/73) du dépot officiel.
  
-`algif_aead` etant builtin, il s'initialise via une `initcall` au demarrage.
-Le parametre kernel `initcall_blacklist` permet de bloquer cette initialisation avant que le systeme ne soit operationnel.
+`algif_aead` étant builtin, il s'initialise via une `initcall` au démarrage.
+Le parametre kernel `initcall_blacklist` permet de bloquer cette initialisation avant que le systeme ne soit opérationnel.
  
 ```bash
 grubby --update-kernel=ALL --args="initcall_blacklist=algif_aead_init"
@@ -357,7 +367,7 @@ esac
  
 {{< video "/videos/copyfail.mp4" >}}
  
-Deroulement :
+Déroulement :
  
 1. `cat /etc/redhat-release` + `whoami` + `sudo -l` (pas de privileges)
 2. `python3.12 poc.py` — obtention du shell root
