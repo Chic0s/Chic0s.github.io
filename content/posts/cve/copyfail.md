@@ -1,5 +1,5 @@
 ---
-title: "CVE-2026-31431 — Copy Fail : la mitigation officielle ne fonctionne pas sur RHEL 8.7"
+title: "CVE-2026-31431 — Copy Fail : la mitigation fournie ne fonctionne pas sur RHEL 8.7"
 date: 2026-05-08
 description: "Analyse de CVE-2026-31431 (Copy Fail) sur RHEL 8.7 : demonstration que la mitigation officielle est inefficace en raison de la compilation builtin d'algif_aead, et presentation de la mitigation correcte via initcall_blacklist."
 tags:
@@ -16,7 +16,7 @@ draft: false
  
 ## TL;DR
  
-Copy Fail (CVE-2026-31431) permet à un utilisateur local non privilegié d'obtenir un shell root en 732 octets de Python.
+Copy Fail (CVE-2026-31431) permet à un utilisateur local non privilégié d'obtenir un shell root en 732 octets de Python.
 La mitigation officielle publiée sur [copy.fail](https://copy.fail) est sans effet sur RHEL 8.7 car `algif_aead` est compile directement dans le kernel (`CONFIG_CRYPTO_USER_API_AEAD=y`).
 La mitigation correcte passe par `initcall_blacklist` via `grubby`, documentée dans l'[issue #73](https://github.com/theori-io/copy-fail-CVE-2026-31431/issues/73) du dépot officiel.
  
@@ -33,7 +33,7 @@ Compte : lowpriv (utilisateur standard, pas de sudo)
  
 ---
  
-## La vulnerabilité
+## La vulnérabilité
  
 La faille est localisée dans `algif_aead`, introduite en aout 2017 dans `authencesn`.
 En chaînant un socket `AF_ALG`, `splice()` et le page cache du kernel, l'exploit ecrit 4 octets dans la représentation memoire de `/usr/bin/su` sans toucher le fichier sur le disque.
