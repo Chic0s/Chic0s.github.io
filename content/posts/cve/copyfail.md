@@ -35,7 +35,7 @@ Compte : lowpriv (utilisateur standard, pas de sudo)
  
 ## La vulnérabilité
  
-La faille est localisée dans `algif_aead`, introduite en aout 2017 dans `authencesn`.
+La faille est localisée dans l'optimisation in-place de `algif_aead`, introduite en 2017 (commit `72548b093ee3`), qui combinée au comportement de `authencesn` permet l'exploitation.
 En chaînant un socket `AF_ALG`, `splice()` et le page cache du kernel, l'exploit ecrit 4 octets dans la représentation memoire de `/usr/bin/su` sans toucher le fichier sur le disque.
  
 ```
@@ -170,7 +170,7 @@ sudo ./copyfail.sh /patch      # root requis
  
 Logique de detection :
  
-1. Version du kernel (fenetre vulnerable >= 4.13)
+1. Version du kernel (fenetre vulnerable >= 4.14)
 2. Type de `algif_aead` : builtin `=y` ou module `=m`
 3. Presence de `initcall_blacklist` dans `/proc/cmdline` et GRUB
 4. Bind du socket AEAD (verdict final)
@@ -226,8 +226,8 @@ cmd_detect() {
     local major minor
     major=$(echo "$KERNEL" | cut -d. -f1)
     minor=$(echo "$KERNEL" | cut -d. -f2)
-    [[ "$major" -gt 4 || ("$major" -eq 4 && "$minor" -ge 13) ]] && \
-        echo -e "    Plage   : ${RED}Vulnerable (>= 4.13)${NC}" || \
+    [[ "$major" -gt 4 || ("$major" -eq 4 && "$minor" -ge 14) ]] && \
+        echo -e "    Plage   : ${RED}Vulnerable (>= 4.14)${NC}" || \
         echo -e "    Plage   : ${GREEN}Non vulnerable${NC}"
  
     echo -e "\n${BOLD}[2] algif_aead${NC}"
