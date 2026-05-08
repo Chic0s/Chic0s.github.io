@@ -37,8 +37,8 @@ paginate = 5
     weight = 10
 
   [[menu.main]]
-    identifier = "hardware"
-    name = "Hardware"
+    identifier = "PoC"
+    name = "PoC"
     url = "/posts/cve/"
     weight = 20
 
