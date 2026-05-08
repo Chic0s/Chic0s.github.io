@@ -37,34 +37,40 @@ paginate = 5
     weight = 10
 
   [[menu.main]]
+    identifier = "hardware"
+    name = "Hardware"
+    url = "/posts/cve/"
+    weight = 20
+
+  [[menu.main]]
     identifier = "ctf"
     name = "CTF"
     url = "/posts/ctf/"
-    weight = 20
+    weight = 30
 
   [[menu.main]]
     identifier = "dojo"
     name = "Dojo YWH"
     url = "/posts/dojo/"
-    weight = 30
+    weight = 40
 
   [[menu.main]]
     identifier = "hardware"
     name = "Hardware"
     url = "/posts/hardware/"
-    weight = 40
+    weight = 50
 
   [[menu.main]]
     identifier = "sensibilisation"
     name = "Sensibilisation"
-    url = "/sensibilisation/"
-    weight = 50
+    url = "/posts/sensibilisation/"
+    weight = 60
 
   [[menu.main]]
     identifier = "about"
     name = "About"
     url = "/about/"
-    weight = 60
+    weight = 70
 
 [taxonomies]
   category = "categories"
