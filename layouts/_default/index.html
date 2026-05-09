@@ -1,26 +1,4 @@
 {{ define "main" }}
-  {{ if .IsHome }}
-    <div class="hero">
-      <img src="{{ "images/Chic0s.png" | absURL }}" alt="Chic0s Logo" class="hero-logo">
-      <h1 class="hero-pseudo">Chic0s</h1>
-      <p class="hero-subtitle">Security Engineer</p>
-      <div class="hero-socials">
-        <a href="https://github.com/Chic0s" target="_blank" rel="noopener">
-          <img src="{{ "images/github-mark-white.svg" | absURL }}" alt="GitHub">
-        </a>
-        <a href="https://app.hackthebox.com/users/2311971" target="_blank" rel="noopener">
-          <img src="{{ "images/htb.svg" | absURL }}" alt="HackTheBox">
-        </a>
-        <a href="https://www.root-me.org/Chic0s" target="_blank" rel="noopener">
-          <img src="{{ "images/rootme.svg" | absURL }}" alt="Root-Me">
-        </a>
-        <a href="https://www.linkedin.com/in/pierre-dns/" target="_blank" rel="noopener">
-          <img src="{{ "images/linkedin.svg" | absURL }}" alt="LinkedIn">
-        </a>
-      </div>
-    </div>
-  {{ end }}
-
   {{ if .Content }}
     <div class="index-content {{ if .Params.framed -}}framed{{- end -}}">
       {{ .Content }}
@@ -56,7 +34,7 @@
 
         {{ if .Params.tags }}
           <span class="post-tags">
-            {{ range .Params.tags }}
+            {{ range first 3 .Params.tags }}
             #<a href="{{ (urlize (printf "tags/%s/" . )) | absLangURL }}">
               {{- . -}}
             </a>&nbsp;
